@@ -1,0 +1,193 @@
+<html>
+	<script>
+		function findRollover()
+		{
+			document.getElementById("findPic").src = "MatchMe2.jpg";
+		}
+		
+		function findRollout()
+		{
+			document.getElementById("findPic").src = "MatchMe.jpg";
+		}
+
+		function findBeer()
+		{
+			var total = 0;
+			
+			var x1 = document.getElementById("hopsSel");
+			var x1Val = x1.options[x1.selectedIndex].value;
+			if (x1Val == 1) {
+				total = total + 1000;
+			} else if (x1Val == 2) {
+				total = total + 0;
+			} else {
+				total = total - 1000;
+			}
+				
+			x1 = document.getElementById("weightSel");
+			x1Val = x1.options[x1.selectedIndex].value;
+			if (x1Val == 1) {
+				total = total + 100;
+			} else if (x1Val == 2) {
+				total = total + 0;
+			} else {
+				total = total - 100;
+			}
+				
+			x1 = document.getElementById("flavorSel");
+			x1Val = x1.options[x1.selectedIndex].value;
+			if (x1Val == 1) {
+				total = total + 10;
+			} else if (x1Val == 2) {
+				total = total + 0;
+			} else {
+				total = total - 10;
+			}
+				
+			x1 = document.getElementById("seasonSel");
+			x1Val = x1.options[x1.selectedIndex].value;
+			if (x1Val == 1) {
+				total = total + 1;
+			} else if (x1Val == 2) {
+				total = total + 0;
+			} else {
+				total = total - 1;
+			}
+				
+			var x;
+			var y;
+			switch (total)
+			{
+				case 1111:
+					document.getElementById("beerImage").src="Beers/1111.jpg";
+					x="Great Divide Brewing Co., Colette";
+					y="Mea possit mentitum forensibus an, graece graeci temporibus nec eu. Liber dissentiet mei te, inani graece facilisis eum ad. Sed et velit postea dolores, postea delectus sapientem pri eu. Et civibus appetere argumentum nec. Te duo esse ignota recteque, id duo quando perpetua prodesset.";
+				break;
+				case 1110:
+					document.getElementById("beerImage").src="Beers/1110.jpg";
+					x="Abbey Tripel";
+					y="Dicant principes usu in, doctus detracto duo ex. Ex usu diam delicata efficiantur. Vim dicit causae salutandi no. Eu sea noluisse inciderint, wisi ubique detracto ex pri. Has ea eripuit signiferumque vituperatoribus.";
+				break;
+				case 1101:
+					document.getElementById("beerImage").src="Beers/1101.jpg";
+					x="Deschutes Brewery, Mirror Pong Pale Ale";
+					y="Ad paulo quaestio senserit mel, impedit adipisci mea ei, et timeam ponderum suscipiantur sea. Hinc affert nec ea, mei te autem postea lobortis. Eu feugait principes inciderint eum, in quo nullam impetus.";
+				break;
+				case 1100:
+					document.getElementById("beerImage").src="Beers/1100.jpg";
+					x="The Brew Kettle Production Works, Jack Hammer";
+					y="Est ad nobis ubique detracto. Cum ei incorrupte philosophia intellegebat, est regione gloriatur eu, veniam appareat theophrastus mel eu. Pro primis suscipiantur ex, sed ad justo referrentur efficiantur.";
+				break;
+				case 1011:
+					document.getElementById("beerImage").src="Beers/1011.jpg";
+					x="Troegs Brewery, Flying Mouflan";
+					y="Mea ut putent animal delenit. Eum ex dolorum platonem, te iriure neglegentur per. Tota veritus intellegebat sed cu. Eos verear dissentias ei, usu cu mucius fabulas. Usu percipit tacimates suavitate an, mel ea dicat nostrum reformidans.";
+				break;
+				case 1010:
+					document.getElementById("beerImage").src="Beers/1010.jpg";
+					x="Bristol Brewing Co., Old #23 Barley Wine";
+					y="Te illum audire voluptatibus eum, eam ut admodum corrumpit. Usu altera doctus convenire ne. At sit idque probatus insolens, diam aliquip temporibus ne vim. Pertinax oportere per ad.";
+				break;
+				case 1001:
+					document.getElementById("beerImage").src="Beers/1001.jpg";
+					x="Great Divide Brewery, Yeti";
+					y="In affert facilisis vix, dicta noster no eos, eos unum nibh solet no. Clita offendit ei est, te dolorum denique mei. Vix facer senserit an. Illum utinam maluisset at nam, justo interesset ei nam, cu ius illum vivendo accusata.";
+				break;
+				case 1000:
+					document.getElementById("beerImage").src="Beers/1000.jpg";
+					x="Hollister Brewing Co., Hip Hop Double IPA";
+					y="Virtute numquam tibique at sea, paulo omittantur ne per. Id percipit nominati est, at tacimates platonem eos, cu movet viderer instructior has. Quo ut latine efficiendi, eu cum summo audiam.";
+				break;
+				case 111:
+					document.getElementById("beerImage").src="Beers/111.jpg";
+					x="Deschutes Brewery, Wowzenbock";
+					y="Vero mundi deterruisset nec no, ea causae delicata assueverit per. Ei vim sale novum accusamus, recteque referrentur vim ut, ex brute labore accumsan nec. Veniam invenire perpetua qui ut, no facete verterem persequeris ius.";
+				break;
+				case 110:
+					document.getElementById("beerImage").src="Beers/110.jpg";
+					x="Dry Dock Brewing Co., U-Boat Hefeweizen";
+					y="Primis fuisset antiopam vix ex, solum intellegat scripserit in pro. Usu id dicant docendi. Mea enim mentitum definiebas te, et usu iisque aeterno, civibus minimum te mea. Nam iuvaret explicari vituperata ne.";
+				break;
+				case 101:
+					document.getElementById("beerImage").src="Beers/101.jpg";
+					x="Backcountry Brewery, May Bock";
+					y="Quo dicant evertitur maiestatis no. Pri postea iracundia rationibus ad, te mel dicat omnes persius, no per movet quando phaedrum. At tale quidam abhorreant quo. Alia admodum accumsan ei pro.";
+				break;
+				case 100:
+					document.getElementById("beerImage").src="Beers/100.jpg";
+					x="Chuckanut Brewery, Schwarzbier";
+					y="Ne vel dicta inani, equidem luptatum ut pro, vim verear ancillae in. Ei duo meis detracto molestiae, vim errem fuisset consequuntur ea. At unum summo facilis est, et has quidam noluisse, mei eu quas adipiscing.";
+				break;
+				case 11:
+					document.getElementById("beerImage").src="Beers/11.jpg";
+					x="Biere de Garde";
+					y="Quo no labores convenire adolescens. Sed tamquam mentitum cu, graece option appareat pri an. Ferri tractatos forensibus nam ne. Dicam tritani erroribus et ius. Cu usu quas dissentiunt.";
+				break;
+				case 10:
+					document.getElementById("beerImage").src="Beers/10.jpg";
+					x="Gordon Biersch Brewery, Gordon Biersch Weizenbock";
+					y="No quas harum accusam has, id atqui vocibus cum. Saepe congue discere ex eum, eripuit recusabo sea at, tollit postulant nam eu. Nec saperet mentitum no, vel te aeterno labores voluptatibus.";
+				break;
+				case 1:
+					document.getElementById("beerImage").src="Beers/1.jpg";
+					x="Left Hand Brewing Co., Fade to Black";
+					y="Alienum splendide constituam no his, quo te fabellas cotidieque. Mea appetere vituperatoribus ne. Vitae nominati definitiones vix eu, animal fuisset menandri et vim. Quo te iusto detraxit adversarium.";
+				break;
+				case 0:
+					document.getElementById("beerImage").src="Beers/0.jpg";
+					x="Lost Abbey, Carnevale";
+					y="At recteque scripserit cotidieque sed. Vis choro dolores an, ea dicam soleat ocurreret sea. Pro an tota exerci vituperata. Ad fuisset lobortis deseruisse nec, ea duo alii cibo integre.";
+				break;
+			}
+			document.getElementById("nameOfBeer").innerHTML=x;
+			document.getElementById("beerDescrip").innerHTML=y;
+		}
+	</script>
+
+	<head>
+		<title>I like my beers</title>
+		<link rel="stylesheet" type="text/css" href="styles.css">
+	</head>
+	
+	<body>
+		<table>
+			<tbody>
+				<tr class="header1">
+					<td class="headerleft" colspan="4"></td>
+					<td><img class="centerdisp" src="BrewPad.jpg"></td>
+				</tr>
+				<tr class="header2">
+					<td class="headerleft" colspan="4"><img class="centerdisp" src="ILMB.jpg"></td>
+					<td class="headerright" rowspan="3"><img class="centerdisp" src="MatchMe.jpg" id="findPic" onmouseover="findRollover()" onmouseout="findRollout()" onclick="findBeer()"></td>
+				</tr>
+				<tr class="header2">
+					<td class="buttons"><img class="centerdisp" src="Hops.jpg"></td>
+					<td class="buttons"><img class="centerdisp" src="Weight.jpg"></td>
+					<td class="buttons"><img class="centerdisp" src="Flavor.jpg"></td>
+					<td class="buttons"><img class="centerdisp" src="Season.jpg"></td>
+				</tr>
+				<tr class="header3">
+					<td class="buttons"><select class="centerdisp" id="hopsSel"><option value="1">Lots of hops</option><option value="2">Fewer hops</option></td>
+					<td class="buttons"><select class="centerdisp" id="weightSel"><option value="1">Light</option><option value="2">Heavy</option></td>
+					<td class="buttons"><select class="centerdisp" id="flavorSel"><option value="1">Citrus</option><option value="2">Nutty</option></td>
+					<td class="buttons"><select class="centerdisp" id="seasonSel"><option value="1">Winter</option><option value="2">Spring</option></td>
+				</tr>
+				
+				<tr style="background-color:black">
+					<td class="middle" colspan="2" rowspan="3"><img class="centerdisp" id="beerImage" src="blank.jpg" style="width:209px;height:209px"></td>
+					<td colspan="3" style="height:8px"></td>
+				</tr>
+				<tr style="background-color:black">
+					<td colspan="3" style="height:50px"><h3 style="color:white;vertical-align:bottom" id="nameOfBeer"></h3></td>
+				</tr>
+				<tr style="background-color:black">
+					<td colspan="3" style="height:200px"><blocktext style="color:white" id="beerDescrip"></blocktext></td>
+				</tr>
+
+				<tr>
+					<td colspan="5"><img class="centerdisp" src="Trending.jpg"></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

@@ -1,0 +1,53 @@
+table {
+	border-spacing: 0px;
+	width: 741px;
+}
+
+table.center {
+	text-align: center;
+}
+
+tr.header1 {
+	height: 41px;
+	background-color: #EBAB41;
+}
+
+tr.header2 {
+	height: 49px;
+	background-color: #EBAB41;
+}
+
+tr.header3{
+	height: 15px;
+	background-color: #EBAB41;
+}
+
+td.middle {
+	height: 258px;
+	background-color: #000000;
+}
+
+td.headerleft {
+	vertical-align:middle;
+}
+
+td.headerright {
+	text-align: middle;
+	vertical-align:bottom;
+}
+
+td.buttons {
+	width: 149px;
+}
+
+select.centerdisp {
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+img.centerdisp {
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
