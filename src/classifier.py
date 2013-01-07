@@ -4,35 +4,47 @@ import sys
 import csv
 from optparse import OptionParser
 
-def create_database(prefs):
-    with open('../beermap.csv', 'rb') as csvfile:
+def create_database(prefs, groups):
+    with open('../data/beermap.csv', 'rbU') as csvfile:
         db = csv.DictReader(csvfile, quotechar='|')
-        shortest=99999
+        shortest=sys.maxint
         match=""
         for beer in db:
             distance=0
             for category in prefs:
-                distance+=abs(prefs[category]-beer[category])
+                if category in groups:
+                    sum=0
+                    for flavor in groups[category]:
+                        sum+=int(beer[category])
+                    distance+=abs(len(groups[category])-sum)
+                else:
+                    distance+=abs(prefs[category]-int(beer[category]))
+        
             if distance<shortest:
                 shortest=distance
                 match=beer['STYLE']
-    return db
+    return match 
 
-def classify(prefs, db):
-    n_neighbors = 1 #number of neighbors    
-    print db.line_num
-    print db
- 
+def flavor_groupings():
+    with open('../data/flavorgrouping.csv', 'rbU') as csvfile:
+        reader = csv.reader(csvfile, quotechar='|')
+        groups={}
+        for row in reader:
+            flavors=row[1:]
+            print flavors
+            groups[row[0]]=flavors
+    return groups
 
 def main():
     
-    prefs = {'Caramel': 1, 'Bitterness to Sweetness level (1 most sweet to 5 most bitter)': 3,
-            '5 Full-bodied to 1 light': 3, 'Fruity':1}
-    db = create_database(prefs)
-    print prefs
-    suggestion = classify(prefs, db)
-    print db.fieldnames
-    print db.line_num
+    questions=['bitterness', 'flavor', 'color', 'Vanilla', 'Fruity', 'Earthy', 'Mineral', 'Toasty', 'Spices', 'Florals', 'Grainy', 'Creamy']
+    
+    prefs = {'bitterness': 3, 'flavor': 3, 'color': 3, 'Vanilla': 1, 'Fruity': 1, 'Earthy': 1, 'Mineral': 1, 'Toasty': 1, 'Spices': 1, 'Florals': 1, 'Grainy': 1, 'Creamy': 1}
+    
+    groups = flavor_groupings()
+    
+    suggestion = create_database(prefs)
+
     print suggestion
 
 if __name__ == "__main__":
