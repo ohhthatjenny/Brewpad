@@ -8,7 +8,7 @@ def create_database(prefs, groups):
     with open('../data/beermap.csv', 'rbU') as csvfile:
         db = csv.DictReader(csvfile, quotechar='|')
         shortest=sys.maxint
-        match=""
+        beer_scores=[]
         for beer in db:
             distance=0
             for category in prefs:
@@ -21,12 +21,10 @@ def create_database(prefs, groups):
                     distance+=math.pow(abs(prefs[category]-float(beer[category])),2)
         
             distance=math.sqrt(distance)
-            print str(distance) + " " + beer['STYLE']
         
-            if distance<shortest:
-                shortest=distance
-                match=beer['STYLE']
-    return match 
+            beer_scores.append((distance, beer['STYLE']))
+            beer_scores.sort()
+    return beer_scores
 
 def flavor_groupings():
     with open('../data/flavorgrouping.csv', 'rbU') as csvfile:
@@ -34,7 +32,6 @@ def flavor_groupings():
         groups={}
         for row in reader:
             flavors=row[1:]
-            print flavors
             groups[row[0]]=flavors
     return groups
 
@@ -47,8 +44,8 @@ def main():
     groups = flavor_groupings()
     
     suggestion = create_database(prefs, groups)
-
-    print suggestion
+    for beer in suggestion:
+        print beer
 
 if __name__ == "__main__":
     main()
