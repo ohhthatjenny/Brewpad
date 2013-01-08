@@ -2,7 +2,7 @@
 
 import sys
 import csv
-from optparse import OptionParser
+import math
 
 def create_database(prefs, groups):
     with open('../data/beermap.csv', 'rbU') as csvfile:
@@ -16,9 +16,12 @@ def create_database(prefs, groups):
                     sum=0
                     for flavor in groups[category]:
                         sum+=int(beer[category])
-                    distance+=abs(len(groups[category])-sum)
+                    distance+=math.pow(abs(len(groups[category])-sum),2)
                 else:
-                    distance+=abs(prefs[category]-int(beer[category]))
+                    distance+=math.pow(abs(prefs[category]-float(beer[category])),2)
+        
+            distance=math.sqrt(distance)
+            print str(distance) + " " + beer['STYLE']
         
             if distance<shortest:
                 shortest=distance
@@ -39,11 +42,11 @@ def main():
     
     questions=['bitterness', 'flavor', 'color', 'Vanilla', 'Fruity', 'Earthy', 'Mineral', 'Toasty', 'Spices', 'Florals', 'Grainy', 'Creamy']
     
-    prefs = {'bitterness': 3, 'flavor': 3, 'color': 3, 'Vanilla': 1, 'Fruity': 1, 'Earthy': 1, 'Mineral': 1, 'Toasty': 1, 'Spices': 1, 'Florals': 1, 'Grainy': 1, 'Creamy': 1}
+    prefs = {'bitterness':2, 'flavor': 5, 'color': 5, 'Vanilla': 1, 'Fruity': 0, 'Earthy': 1, 'Mineral': 1, 'Toasty': 1, 'Spices': 0, 'Florals': 0, 'Grainy': 0, 'Creamy': 0}
     
     groups = flavor_groupings()
     
-    suggestion = create_database(prefs)
+    suggestion = create_database(prefs, groups)
 
     print suggestion
 
