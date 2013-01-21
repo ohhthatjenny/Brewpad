@@ -22,9 +22,8 @@ def get_substyle_scores(prefs, groups):
         
             distance=math.sqrt(distance)
             beer_scores.append((distance, beer['STYLE']))
-        print beer_scores
-    beer_scores=beer_scores.sort()
-    print beer_scores
+
+    beer_scores.sort()
     return beer_scores
 
 def flavor_groupings():
@@ -42,33 +41,29 @@ def get_inventory(beer_scores):
         beers={}
         for row in reader:
             if row[0] in beers:
-                beers[row[0]].append(row[2])
+                beers[row[0]].append(row[4])
             else:
-                beers[row[0]]=[row[2]]
+                beers[row[0]]=[row[4]]
     return beers
 
 def get_rec(beer_scores, inventory):
     recs=[]
-    print beer_scores
     for beer in beer_scores:
-        recs.extend(inventory[beer[1]])
-    print recs
+        if beer[1] in inventory:
+            recs.extend(inventory[beer[1]])
     return recs
 
-
+# input = {'bitterness': int, 'flavor': int, 'color': int, 'Vanilla': int,
+#          'Fruity': int, 'Earthy': int, 'Mineral': int, 'Toasty': int,
+#          'Spices': int, 'Florals': int, 'Grainy': int, 'Creamy': int}
+# output = list of beer IDs, where beer is in order of best matches
 def main():
-    
-    questions=['bitterness', 'flavor', 'color', 'Vanilla', 'Fruity', 'Earthy', 'Mineral', 'Toasty', 'Spices', 'Florals', 'Grainy', 'Creamy']
-    
-    prefs = {'bitterness': 3, 'flavor': 3, 'color': 4, 'Vanilla': 0, 'Fruity': 0, 'Earthy': 1, 'Mineral': 0, 'Toasty': 1, 'Spices': 0, 'Florals': 0, 'Grainy': 0, 'Creamy': 0}
-    
+    #prefs = {'bitterness': 3, 'flavor': 3, 'color': 4, 'Vanilla': 0, 'Fruity': 0, 'Earthy': 1, 'Mineral': 0, 'Toasty': 1, 'Spices': 0, 'Florals': 0, 'Grainy': 0, 'Creamy': 0}
     groups = flavor_groupings()
-    
-    beer_scores = get_substyle_scores(prefs, groups)
-
+    beer_scores = get_substyle_scores(sys.argv[0], groups)
     inventory=get_inventory(beer_scores)
-    
     recommendations=get_rec(beer_scores, inventory)
+    return recommendations
 
 if __name__ == "__main__":
     main()
