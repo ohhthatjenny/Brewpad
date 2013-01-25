@@ -58,7 +58,7 @@ def get_rec(beer_scores, inventory):
 #          'Spices': int, 'Florals': int, 'Grainy': int, 'Creamy': int}
 # output = list of beer IDs, where beer is in order of best matches
 def main():
-    prefs = {'bitterness': 3, 'flavor': 3, 'color': 4, 'Vanilla': 0, 'Fruity': 0, 'Earthy': 1, 'Mineral': 0, 'Toasty': 1, 'Spices': 0, 'Florals': 0, 'Grainy': 0, 'Creamy': 0}
+    prefs = {'bitterness': 1, 'flavor': 4, 'color': 4, 'Vanilla': 0, 'Fruity': 0, 'Earthy': 1, 'Mineral': 0, 'Toasty': 1, 'Spices': 0, 'Florals': 0, 'Grainy': 0, 'Creamy': 0}
     groups = flavor_groupings()
     beer_scores = get_substyle_scores(prefs, groups)
     inventory=get_inventory(beer_scores)
