@@ -1,3 +1,5 @@
+# Creates DB of styles from BreweryDB. Outputs are scaled 1-10
+
 import sys
 import json
 import csv
@@ -39,9 +41,9 @@ def get_scale(style, var_max, var_min, var, scale):
     return style_var
 
 
-def make_csv(beer_styles, srm, ibu, abv, scale):
+def make_csv(beer_styles, srm, ibu, fg, abv, scale):
     style_db=[]
-    fieldnames=('id','name','srm_min','srm_max','srm_avg','srm','ibu','abv')
+    fieldnames=('id','name','color','bitterness','flavor','alcohol')
     f=open('../data/styles_brewerydb.csv', 'wt')
     writer=csv.DictWriter(f, fieldnames)
     headers = dict( (n,n) for n in fieldnames )
@@ -51,15 +53,13 @@ def make_csv(beer_styles, srm, ibu, abv, scale):
         entry['id']=style['id']
         entry['name']=unicodedata.normalize('NFKD', style['name']).encode('ascii','ignore')
         if 'srmMax' in style and 'srmMin' in style:
-            entry['srm_min']=style['srmMin']
-            entry['srm_max']=style['srmMax']
-            entry['srm_avg']=avg_var(style, 'srmMax', 'srmMin')
-        if 'srmMax' in style and 'srmMin' in style:
-            entry['srm']=get_scale(style, 'srmMax', 'srmMin', srm, scale)
+            entry['color']=get_scale(style, 'srmMax', 'srmMin', srm, scale)
         if 'ibuMax' in style and 'ibuMin' in style:
-            entry['ibu']=get_scale(style, 'ibuMax', 'ibuMax', ibu, scale)
+            entry['bitterness']=get_scale(style, 'ibuMax', 'ibuMin', ibu, scale)
+        if 'fgMax' in style and 'fgMin' in style:
+            entry['flavor']=get_scale(style, 'fgMax', 'fgMin', fg, scale)
         if 'abvMax' in style and 'abvMin' in style:
-            entry['abv']=get_scale(style, 'abvMax', 'abvMin', abv, scale)
+            entry['alcohol']=get_scale(style, 'abvMax', 'abvMin', abv, scale)
         style_db.append(entry)
     writer.writerows(style_db)
         
@@ -72,9 +72,9 @@ def main():
     beer_styles= jsondata['data']
     srm=meanstdv(beer_styles, 'srmMax', 'srmMin')
     ibu=meanstdv(beer_styles, 'ibuMax', 'ibuMin')
+    fg=meanstdv(beer_styles, 'fgMax', 'fgMin')
     abv=meanstdv(beer_styles, 'abvMax', 'abvMin')
-    #fgMin, fgMax
-    make_csv(beer_styles, srm, ibu, abv, scale)
+    make_csv(beer_styles, srm, ibu, fg, abv, scale)
 
 
 if __name__ == "__main__":
