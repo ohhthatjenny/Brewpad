@@ -1,7 +1,6 @@
 # Creates DB of styles from BreweryDB. Outputs are scaled 1-10
 
 import sys
-import json
 import csv
 from math import sqrt
 from brewerydb import *
