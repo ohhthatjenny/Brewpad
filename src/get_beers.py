@@ -13,6 +13,13 @@ def get_beer(path, api_key, upc):
     if 'data' in response.json():
         return response.json()['data'][0]
 
+def get_full_upc(upc):
+    upc_str=str(upc)
+    upc=[int(s) for s in upc_str]
+    check_digit = 10-((upc[0]+upc[2]+upc[4]+upc[6]+upc[8]+upc[10])*3+upc[1]+upc[3]+upc[5]+upc[7]+upc[9]) % 10
+    check_digit = (0 if check_digit==10 else check_digit)
+    return upc_str+str(check_digit)
+    
 def main():
     api_key='94771e483e06142b0b8a7e1b8326bbc7'
     path='http://api.brewerydb.com/v2/'
@@ -23,26 +30,33 @@ def main():
     writer=csv.DictWriter(f, fieldnames)
     headers = dict((n,n) for n in fieldnames)
     writer.writerow(headers)
-    
+    beer_db=[]
     with open('../data/wegmans_inventory.csv', 'rbU') as inventory:
         reader = csv.reader(inventory, delimiter=' ', quotechar='|')
         for row in reader:
-            print row
-
-    beer=get_beer(path, api_key, '606905008303')
-    entry={}
-    entry['id']=beer['id']
-    entry['name']=beer['name']
-    entry['description']=beer['description']
-    entry['style_id']=beer['style']['id']
-    entry['glass_id']=beer['glass']['name']
-    entry['glass_name']=beer['glass']['name']
-    entry['label']=beer['labels']['large']
-    entry['availability_id']=beer['available']['id']
-    entry['availability_name']=beer['available']['name']
-    entry['is_organic']=beer['isOrganic']
-    print entry
-    writer.writerow(entry)
+            upc = [s for s in row[0] if s.isdigit()]
+            upc=''.join(upc)
+            upc= get_full_upc(upc)
+            beer=get_beer(path, api_key, upc)
+            
+            if beer is not None and 'id' in beer and 'name' in beer and 'description' in beer and 'style' in beer:
+                entry={}
+                entry['id']=beer['id']
+                entry['name']=unicodedata.normalize('NFKD', beer['name']).encode('ascii','ignore')
+                entry['description']=unicodedata.normalize('NFKD', beer['description']).encode('ascii','ignore')
+                entry['style_id']=beer['style']['id']
+                if 'glass' in beer:
+                    entry['glass_id']=beer['glass']['name']
+                    entry['glass_name']=unicodedata.normalize('NFKD', beer['glass']['name']).encode('ascii','ignore')
+                if 'labels' in beer:
+                    entry['label']=beer['labels']['large']
+                if 'available' in beer:
+                    entry['availability_id']=beer['available']['id']
+                    entry['availability_name']=unicodedata.normalize('NFKD', beer['available']['name']).encode('ascii','ignore')
+                if 'isOrganic' in beer:
+                    entry['is_organic']=beer['isOrganic']
+                beer_db.append(entry)
+    writer.writerows(beer_db)
 
 #id
 #name
