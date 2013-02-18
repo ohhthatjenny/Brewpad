@@ -42,7 +42,7 @@ def get_scale(style, var_max, var_min, var, scale):
 
 def make_csv(beer_styles, srm, ibu, fg, abv, scale):
     style_db=[]
-    fieldnames=('id','name','color','bitterness','flavor','alcohol')
+    fieldnames=('id','name', 'color','bitterness','flavor','alcohol')
     f=open('../data/styles_brewerydb.csv', 'wt')
     writer=csv.DictWriter(f, fieldnames)
     headers = dict( (n,n) for n in fieldnames )

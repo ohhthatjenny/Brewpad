@@ -40,22 +40,30 @@ def main():
             beer=get_beer(path, api_key, upc)
             
             if beer is not None and 'id' in beer and 'name' in beer and 'description' in beer and 'style' in beer:
-                entry={}
-                entry['id']=beer['id']
-                entry['name']=unicodedata.normalize('NFKD', beer['name']).encode('ascii','ignore')
-                entry['description']=unicodedata.normalize('NFKD', beer['description']).encode('ascii','ignore')
-                entry['style_id']=beer['style']['id']
-                if 'glass' in beer:
-                    entry['glass_id']=beer['glass']['name']
-                    entry['glass_name']=unicodedata.normalize('NFKD', beer['glass']['name']).encode('ascii','ignore')
-                if 'labels' in beer:
-                    entry['label']=beer['labels']['large']
-                if 'available' in beer:
-                    entry['availability_id']=beer['available']['id']
-                    entry['availability_name']=unicodedata.normalize('NFKD', beer['available']['name']).encode('ascii','ignore')
-                if 'isOrganic' in beer:
-                    entry['is_organic']=beer['isOrganic']
-                beer_db.append(entry)
+                double = False
+                
+                #Make sure we don't add a beer twice
+                for b in beer_db:
+                    if b['id']==beer['id']:
+                        double=True
+            
+                if not double:
+                    entry={}
+                    entry['id']=beer['id']
+                    entry['name']=unicodedata.normalize('NFKD', beer['name']).encode('ascii','ignore')
+                    entry['description']=unicodedata.normalize('NFKD', beer['description']).encode('ascii','ignore')
+                    entry['style_id']=beer['style']['id']
+                    if 'glass' in beer:
+                        entry['glass_id']=beer['glass']['name']
+                        entry['glass_name']=unicodedata.normalize('NFKD', beer['glass']['name']).encode('ascii','ignore')
+                    if 'labels' in beer:
+                        entry['label']=beer['labels']['large']
+                    if 'available' in beer:
+                        entry['availability_id']=beer['available']['id']
+                        entry['availability_name']=unicodedata.normalize('NFKD', beer['available']['name']).encode('ascii','ignore')
+                    if 'isOrganic' in beer:
+                        entry['is_organic']=beer['isOrganic']
+                    beer_db.append(entry)
     writer.writerows(beer_db)
 
 #id
