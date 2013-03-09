@@ -27,12 +27,12 @@ def main():
     
     fieldnames=('id','name','description', 'style_id','glass_id','glass_name','label', 'availability_id', 'availability_name', 'is_organic')
     f=open('../data/beers_inventory_brewerydb.csv', 'wt')
-    writer=csv.DictWriter(f, fieldnames)
+    writer=csv.DictWriter(f, fieldnames, quoting=csv.QUOTE_ALL)
     headers = dict((n,n) for n in fieldnames)
     writer.writerow(headers)
     beer_db=[]
     with open('../data/wegmans_inventory.csv', 'rbU') as inventory:
-        reader = csv.reader(inventory, delimiter=' ', quotechar='|')
+        reader = csv.reader(inventory, delimiter=' ')
         for row in reader:
             upc = [s for s in row[0] if s.isdigit()]
             upc=''.join(upc)

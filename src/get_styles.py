@@ -44,7 +44,7 @@ def make_csv(beer_styles, srm, ibu, fg, abv, scale):
     style_db=[]
     fieldnames=('id','name', 'color','bitterness','flavor','alcohol')
     f=open('../data/styles_brewerydb.csv', 'wt')
-    writer=csv.DictWriter(f, fieldnames)
+    writer=csv.DictWriter(f, fieldnames, quoting=csv.QUOTE_ALL)
     headers = dict( (n,n) for n in fieldnames )
     writer.writerow(headers)
     for style in beer_styles:
