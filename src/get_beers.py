@@ -3,6 +3,7 @@
 import sys
 import csv
 import requests
+import urllib
 from brewerydb import *
 import unicodedata
 
@@ -46,7 +47,7 @@ def main():
                 for b in beer_db:
                     if b['id']==beer['id']:
                         double=True
-            
+
                 if not double:
                     entry={}
                     entry['id']=beer['id']
@@ -58,6 +59,7 @@ def main():
                         entry['glass_name']=unicodedata.normalize('NFKD', beer['glass']['name']).encode('ascii','ignore')
                     if 'labels' in beer:
                         entry['label']=beer['labels']['large']
+                        urllib.urlretrieve(beer['labels']['large'], '../data/images/'+beer['id'])
                     if 'available' in beer:
                         entry['availability_id']=beer['available']['id']
                         entry['availability_name']=unicodedata.normalize('NFKD', beer['available']['name']).encode('ascii','ignore')
